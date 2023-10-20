@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       Note note = filteredNotes[index];
       allNotes.remove(note);
-      filteredNotes.remove(note);
+      filteredNotes = allNotes;
       _db.saveNotes(allNotes);
     });
   }
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 20,),
-            allNotes.isEmpty == true
+            filteredNotes.isEmpty == true
                 ? Padding(
               padding: const EdgeInsets.only(top: 200.0),
               child: Center(
@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 id: filteredNotes[index].id,
                                 title: result[0],
                                 content: result[1],
-                                modifiedTime: DateTime.now());
+                                modifiedTime: allNotes[originalIndex].modifiedTime);
 
                             _db.saveNotes(allNotes);
                           });
